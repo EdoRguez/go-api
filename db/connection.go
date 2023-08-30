@@ -3,7 +3,6 @@ package db
 import (
 	"log"
 
-	"github.com/edorguez/go-api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -15,13 +14,10 @@ var DSN = "host=localhost user=postgres password=admin dbname=gorm port=5432 ssl
 
 func DBConnection() {
 	var error error
-	DB, error := gorm.Open(postgres.Open(DSN), &gorm.Config{})
+	DB, error = gorm.Open(postgres.Open(DSN), &gorm.Config{})
 	if error != nil || DB == nil {
 		log.Fatal(error)
 	} else {
-		log.Println("DB conntected to ")
-
-		DB.AutoMigrate(models.Task{})
-		DB.AutoMigrate(models.User{})
+		log.Println("DB conntected to ", DB)
 	}
 }
